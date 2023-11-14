@@ -57,12 +57,11 @@ values (BNode left key (Just value) right) = value : (values left) ++ (values ri
 
 insert :: Ord value => Int -> value -> IntSearchTree value -> IntSearchTree value
 insert key value Empty = BNode Empty key (Just value) Empty
-insert key value (BNode _ _ Nothing _) = BNode Empty key (Just value) Empty 
+insert key value (BNode _ _ Nothing _) = BNode Empty key (Just value) Empty
 insert key value (BNode left_node key_node (Just value_node) right_node)
     | value < value_node = BNode (insert key value left_node) key_node (Just value_node) right_node
     | otherwise = BNode left_node key_node (Just value_node) (insert key value right_node)
 
-{-
 tree1 =
   BNode
     (BNode Empty 5 (Just "abc") Empty)
@@ -71,7 +70,22 @@ tree1 =
     (BNode Empty 15 (Just "ghi") Empty)
 
 tree2 = insert 3 "foo" Empty
--}
 
 delete :: Int -> IntSearchTree value -> IntSearchTree value
-delete = undefined 
+delete key Empty = Empty
+delete key (BNode _ _ Nothing _) = Empty
+delete key (BNode left_node key_node (Just value_node) right_node)
+    | key == key_node = BNode left_node key_node Nothing right_node
+    | otherwise = BNode (delete key left_node) key_node (Just value_node) (delete key right_node)
+
+toList :: IntSearchTree value -> [(Int, value)]
+toList Empty = []
+toList (BNode _ _ Nothing _) = []
+toList (BNode left_node key_node (Just value_node) right_node) =
+    (key_node, value_node) : toList left_node ++ toList right_node
+
+printTree :: Show value => IntSearchTree value -> String
+printTree Empty = ""
+printTree (BNode _ _ Nothing _) = ""
+printTree (BNode left_node key_node (Just value_node) right_node) =
+    "(" ++ printTree left_node ++ ") " ++ show value_node ++ " ( " ++ printTree right_node ++ ")"
