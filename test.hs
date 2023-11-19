@@ -1,3 +1,4 @@
+import Data.Sequence (Seq(Empty))
 f x = case x of 
     0 -> 0
     1 -> y + 1
@@ -62,3 +63,19 @@ data Person = Person { firstName :: String,
 
 nextYear :: Person -> Person
 nextYear person = person { age = age person + 1 }
+
+(<+) :: String -> [Int] -> Bool 
+(<+) a b = True
+
+hof :: (a -> b -> c) -> (a -> b) -> a -> c
+hof h f a = h a $ f a
+
+{-
+Fie l1 = [2,4..]
+l2 = ['a', 'b'..]
+l3 = zip l1 l2
+De ce nu pot face
+ "x = head . tail l3",
+ dar pot face 
+ "take 3 l3"
+-}

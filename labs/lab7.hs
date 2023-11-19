@@ -57,7 +57,7 @@ values (BNode left key (Just value) right) = value : (values left) ++ (values ri
 
 insert :: Ord value => Int -> value -> IntSearchTree value -> IntSearchTree value
 insert key value Empty = BNode Empty key (Just value) Empty
-insert key value (BNode _ _ Nothing _) = BNode Empty key (Just value) Empty
+insert key value (BNode _ _ Nothing _) = BNode Empty key (Just value) Empty 
 insert key value (BNode left_node key_node (Just value_node) right_node)
     | value < value_node = BNode (insert key value left_node) key_node (Just value_node) right_node
     | otherwise = BNode left_node key_node (Just value_node) (insert key value right_node)
