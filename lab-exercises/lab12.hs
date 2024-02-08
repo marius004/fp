@@ -92,6 +92,6 @@ mkPerson name address = Person <$> mkName name <*> mkAddress address
     | isNothing $ mkName address = Nothing
     | isNothing $ mkAddress name   = Nothing
     | otherwise = Just (Person (Name name) (Address address))
- -}
+-}
 
 test34 = mkPerson "Gigel" "Str Academiei" == Just (Person (Name "Gigel") (Address "Str Academiei"))
