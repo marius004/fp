@@ -39,3 +39,8 @@ fmap replaceWithP (Just 10)
       (Num -> [Char])
 
 Deci da (Just 'p')
+
+data Arbore a = Nil | Nood a (Arbore a) (Arbore a)
+instance Functor Arbore where 
+    fmap f Nil = Nil
+    fmap f (Nod x l r) = Nod (f x) (fmap f l) (fmap f r)
