@@ -9,7 +9,7 @@ data Prop
   | Not Prop
   | Prop :|: Prop
   | Prop :&: Prop
-  deriving (Eq, Read)
+  deriving Eq
 infixr 2 :|:
 infixr 3 :&:
 
@@ -77,8 +77,8 @@ test_valida2 = valida (Not (Var "P") :|: Var "P") == True
 
 echivalenta :: Prop -> Prop -> Bool
 echivalenta p1 p2
-    | var_p1 /= var_p2 = False
-    | otherwise = all (\(x, y) -> x == y) [(eval p1 state, eval p2 state) | state <- var_p1]
+    | length var_p1 /= length var_p2 = False
+    | otherwise = all (\(x, y) -> x == y) [(eval p1 state1, eval p2 state2) | (state1, state2) <- zip var_p1 var_p2]
   where
     var_p1 = envs $ variabile p1
     var_p2 = envs $ variabile p2

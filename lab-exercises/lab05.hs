@@ -1,10 +1,11 @@
 import Data.List (permutations)
+
 sumaPatrateImpare :: [Int] -> Int
 sumaPatrateImpare xs = 
     let impare = filter odd xs 
     in foldl (\acc x -> acc + x ^ 2) 0 impare
 
-allTrue :: [Bool] -> Bool 
+allTrue :: [Bool] -> Bool
 allTrue xs = foldl (&&) True xs
 
 allVerifies :: (Int -> Bool) -> [Int] -> Bool
@@ -41,7 +42,7 @@ myUnzip xs =
 
 removeDups :: [Int] -> [Int]
 removeDups [] = []
-removeDups (x:xs) 
+removeDups (x:xs)
     | x `elem` xs = removeDups(xs)
     | otherwise = x : removeDups(xs)  
 
